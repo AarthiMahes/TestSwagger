@@ -1,0 +1,194 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v1
+servers:
+- url: https://virtserver.swaggerhub.com/TESTDEVAPRIL05/getCase/v1
+  description: SwaggerHub API Auto Mocking
+- url: http://192.168.104.105:8183/ijustice
+  description: Generated server url
+paths:
+  /case/defendant/{defendantOid}:
+    get:
+      tags:
+      - CaseParties Service Rest Endpoint
+      summary: Retrieves document for the given resource id.
+      operationId: getDefendant
+      parameters:
+      - name: defendantOid
+        in: path
+        required: true
+        schema:
+          type: number
+      responses:
+        "200":
+          description: Defendant Details retreived successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefendantResponse'
+        "400":
+          description: Request has invalid values.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+        "404":
+          description: Defendant Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+        "500":
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+components:
+  schemas:
+    ExceptionResponse:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          example: 2025-04-20T14:30:00Z
+        status:
+          type: integer
+        error:
+          type: string
+        message:
+          type: string
+    CmsResourceResponse:
+      type: object
+      properties:
+        resourceReferenceId:
+          type: string
+    DefendantResponse:
+      type: object
+      properties:
+        partyOid:
+          type: string
+        partyRelateTypeDescription:
+          type: string
+        names:
+          type: array
+          items:
+            $ref: '#/components/schemas/Name'
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/Address'
+        personDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonDetails'
+        identifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/Identification'
+        phones:
+          type: array
+          items:
+            $ref: '#/components/schemas/Phone'
+        webContacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebContact'
+    PersonDetails:
+      type: object
+      properties:
+        birthDate:
+          type: string
+          format: date
+          example: 2025-04-18
+        deathDate:
+          type: string
+          format: date
+          example: 2025-04-18
+        eyeColor:
+          type: string
+        hairColor:
+          type: string
+        height:
+          type: string
+        weight:
+          type: string
+        race:
+          type: string
+        gender:
+          type: string
+        primaryLanguage:
+          type: string
+        speaksEnglish:
+          type: string
+        maritalStatus:
+          type: string
+    Identification:
+      type: object
+      properties:
+        idType:
+          type: string
+        idValue:
+          type: string
+        state:
+          type: string
+    Phone:
+      type: object
+      properties:
+        phoneType:
+          type: string
+        country:
+          type: string
+        nonUsNumber:
+          type: string
+        usAreaCode:
+          type: string
+        usExchange:
+          type: string
+        usNumber:
+          type: string
+        extension:
+          type: string
+    WebContact:
+      type: object
+      properties:
+        contactType:
+          type: string
+        email:
+          type: string
+    Name:
+      type: object
+      properties:
+        nameType:
+          type: string
+        first:
+          type: string
+        middle:
+          type: string
+        last:
+          type: string
+        fullName:
+          type: string
+        title:
+          type: string
+        suffix:
+          type: string
+    Address:
+      type: object
+      properties:
+        addressType:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        apartment:
+          type: string
+        city:
+          type: string
+        addressState:
+          type: string
+        zipcode:
+          type: string
